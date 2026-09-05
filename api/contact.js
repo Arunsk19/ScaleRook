@@ -224,7 +224,17 @@ export default async function handler(req, res) {
       }
     );
 
+    const resendText = await resendResponse.text();
+
+    console.log('Resend status:', resendResponse.status);
+    console.log('Resend response:', resendText);
+
     if (!resendResponse.ok) {
+      console.error('Resend email request failed:', {
+        status: resendResponse.status,
+        response: resendText,
+      });
+
       return errorResponse(
         res,
         502,
