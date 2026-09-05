@@ -99,8 +99,9 @@ export default function Contact() {
                 {/* Field 1: Name & Work Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[12px] font-mono text-[#D7A62A] uppercase font-bold tracking-wider mb-1.5">Full Name *</label>
+                    <label htmlFor="full-name" className="block text-[12px] font-mono text-[#D7A62A] uppercase font-bold tracking-wider mb-1.5">Full Name *</label>
                     <input
+                      id="full-name"
                       type="text"
                       name="fullName"
                       required
@@ -109,8 +110,9 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[12px] font-mono text-[#D7A62A] uppercase font-bold tracking-wider mb-1.5">Work Email *</label>
+                    <label htmlFor="work-email" className="block text-[12px] font-mono text-[#D7A62A] uppercase font-bold tracking-wider mb-1.5">Work Email *</label>
                     <input
+                      id="work-email"
                       type="email"
                       name="email"
                       required
@@ -123,8 +125,9 @@ export default function Contact() {
                 {/* Field 2: Company Name & Current Website */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Company Name *</label>
+                    <label htmlFor="company-name" className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Company Name *</label>
                     <input
+                      id="company-name"
                       type="text"
                       name="company"
                       required
@@ -133,8 +136,9 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Current Website (if any)</label>
+                    <label htmlFor="current-website" className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Current Website (if any)</label>
                     <input
+                      id="current-website"
                       type="url"
                       name="website"
                       placeholder="https://company.com"
@@ -145,10 +149,11 @@ export default function Contact() {
 
                 {/* Field 3: Business Stage Selector */}
                 <div>
-                  <label className="block text-[12px] md:text-[13px] font-mono font-bold text-[#D7A62A] uppercase tracking-[0.14em] mb-2">
+                  <label htmlFor="business-stage" className="block text-[12px] md:text-[13px] font-mono font-bold text-[#D7A62A] uppercase tracking-[0.14em] mb-2">
                     Select Your Business Stage *
                   </label>
                   <select
+                    id="business-stage"
                     name="stage"
                     value={stage}
                     onChange={(e) => setStage(e.target.value)}
@@ -196,10 +201,11 @@ export default function Contact() {
 
                 {/* Field 5: Project Details & Goals */}
                 <div>
-                  <label className="block text-[12px] md:text-[13px] font-mono font-bold text-[#D7A62A] uppercase tracking-[0.14em] mb-1.5">
+                  <label htmlFor="project-details" className="block text-[12px] md:text-[13px] font-mono font-bold text-[#D7A62A] uppercase tracking-[0.14em] mb-1.5">
                     Project Details & Specific Goals *
                   </label>
                   <textarea
+                    id="project-details"
                     name="projectDetails"
                     required
                     rows="4"
@@ -226,6 +232,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={submitting}
+                  aria-busy={submitting}
                   className="btn-gold-rect w-full py-4 text-[14px] md:text-[15px] font-extrabold uppercase tracking-wider flex items-center justify-center gap-2"
                 >
                   <span>{submitting ? 'Sending Request...' : 'Request Strategic Execution Plan'}</span>
