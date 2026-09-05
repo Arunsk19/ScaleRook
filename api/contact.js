@@ -1,5 +1,4 @@
 const recipient = 'yokeshmanivannan2000@gmail.com';
-const defaultFrom = 'onboarding@resend.dev';
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const fieldLimits = {
@@ -33,40 +32,6 @@ function escapeHtml(value) {
     '"': '&quot;',
     "'": '&#39;',
   }[character]));
-}
-
-function sanitizeDiagnostic(value) {
-  return String(value || '')
-    .replace(/Bearer\s+\S+/gi, 'Bearer [redacted]')
-    .replace(/re_[A-Za-z0-9_]+/g, '[redacted]')
-    .slice(0, 500);
-}
-
-function extractEmailAddress(value) {
-  const trimmed = String(value || '').trim();
-  const angled = trimmed.match(/<([^>]+)>/);
-  return (angled ? angled[1] : trimmed).trim().toLowerCase();
-}
-
-function resolveFromAddress() {
-  const configured = typeof process.env.CONTACT_FROM_EMAIL === 'string'
-    ? process.env.CONTACT_FROM_EMAIL.trim()
-    : '';
-
-  if (!configured) {
-    return defaultFrom;
-  }
-
-  const address = extractEmailAddress(configured);
-  const domain = address.split('@')[1] || '';
-
-  // Resend only sends from verified domains. The test sender works
-  // without verification; custom domains fail until they are verified.
-  if (domain === 'resend.dev' && emailPattern.test(address)) {
-    return configured;
-  }
-
-  return defaultFrom;
 }
 
 function parseRequestBody(req) {
@@ -105,9 +70,17 @@ export default async function handler(req, res) {
   const apiKey = typeof process.env.RESEND_API_KEY === 'string'
     ? process.env.RESEND_API_KEY.trim()
     : '';
+  const from = typeof process.env.CONTACT_FROM_EMAIL === 'string'
+    ? process.env.CONTACT_FROM_EMAIL.trim()
+    : '';
 
   if (!apiKey) {
-    console.error('Contact API configuration error: missing RESEND_API_KEY');
+    console.error('Contact API configuration error: RESEND_API_KEY is not set.');
+    return errorResponse(res, 500, 'Unable to send your request.');
+  }
+
+  if (!from) {
+    console.error('Contact API configuration error: CONTACT_FROM_EMAIL is not set.');
     return errorResponse(res, 500, 'Unable to send your request.');
   }
 
@@ -115,7 +88,8 @@ export default async function handler(req, res) {
 
   try {
     body = parseRequestBody(req);
-  } catch {
+  } catch (error) {
+    console.error('Contact API error:', error);
     return errorResponse(res, 400, 'Invalid request.');
   }
 
@@ -166,12 +140,12 @@ export default async function handler(req, res) {
       if (!['http:', 'https:'].includes(parsedWebsite.protocol)) {
         throw new Error('Invalid protocol');
       }
-    } catch {
+    } catch (error) {
+      console.error('Contact API error:', error);
       return errorResponse(res, 400, 'Please provide a valid website URL.');
     }
   }
 
-  const from = resolveFromAddress();
   const subject = `New ScaleRooks Project Enquiry — ${fullName}`;
   const submitted = new Date().toISOString();
 
@@ -220,20 +194,23 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from,
-        to: ['yokeshmanivannan2000@gmail.com'],
+        to: [recipient],
         reply_to: email,
         subject,
         html,
       }),
     });
 
-    const resendText = await resendResponse.text();
+    const resendResponseText = await resendResponse.text();
+
+    console.log('Resend status:', resendResponse.status);
 
     if (!resendResponse.ok) {
-      console.error('Resend email request failed', {
+      console.error('Resend error', {
         status: resendResponse.status,
-        body: sanitizeDiagnostic(resendText),
+        response: resendResponseText,
       });
+      console.error('Resend response:', resendResponseText);
 
       return errorResponse(res, 502, 'Unable to send your request.');
     }
@@ -242,11 +219,7 @@ export default async function handler(req, res) {
       success: true,
     });
   } catch (error) {
-    console.error('Resend email request threw', {
-      name: error?.name,
-      message: sanitizeDiagnostic(error?.message),
-    });
-
+    console.error('Contact API error:', error);
     return errorResponse(res, 502, 'Unable to send your request.');
   }
 }

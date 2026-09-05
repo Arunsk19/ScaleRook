@@ -62,18 +62,26 @@ export default function Contact() {
       });
 
       const result = await response.json().catch(() => ({}));
-      if (!response.ok || !result.success) {
-        throw new Error('Unable to send your request.');
+
+      if (response.status === 200 && result.success) {
+        form.reset();
+        setStage('Early Startup');
+        setSelectedRequirements([
+          'Build (Website/Dev)',
+          'Grow (Marketing/SEO)',
+          'Sell (Sales Pipeline)'
+        ]);
+        setSubmitted(true);
+        return;
       }
 
-      form.reset();
-      setStage('Early Startup');
-      setSelectedRequirements([
-        'Build (Website/Dev)',
-        'Grow (Marketing/SEO)',
-        'Sell (Sales Pipeline)'
-      ]);
-      setSubmitted(true);
+      if (response.status === 400) {
+        setSubmitError(result.error || 'Please check the form and try again.');
+        return;
+      }
+
+      setSubmitError("We couldn't send your request right now. Please try again in a moment.");
+
     } catch {
       setSubmitError("We couldn't send your request right now. Please try again in a moment.");
     } finally {
