@@ -1,25 +1,80 @@
 import React, { useState } from 'react';
 import { X, CheckCircle, Calendar, ArrowRight, ShieldCheck } from 'lucide-react';
 
+const initialFormData = {
+  name: '',
+  email: '',
+  company: '',
+  serviceNeed: 'ScaleRooks Build',
+  message: ''
+};
+
 export default function StrategyCallModal({ isOpen, onClose }) {
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    serviceNeed: 'ScaleRooks Build',
-    message: ''
-  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [formData, setFormData] = useState(initialFormData);
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleClose = () => {
+    setSubmitted(false);
+    setSubmitting(false);
+    setSubmitError('');
+    setFormData(initialFormData);
+    onClose();
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 2800);
+    if (submitting) return;
+
+    const fullName = formData.name.trim();
+    const email = formData.email.trim();
+    const company = formData.company.trim() || 'Home Page Enquiry';
+    const projectDetails = formData.message.trim();
+
+    if (!fullName || !email || !company || !projectDetails) {
+      setSubmitError('Please complete all required fields.');
+      return;
+    }
+
+    setSubmitting(true);
+    setSubmitError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName,
+          email,
+          company,
+          website: 'Not provided',
+          stage: 'Not specified',
+          requirements: 'Home Page Conversation',
+          projectDetails,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (response.ok === true && result.success === true) {
+        setFormData(initialFormData);
+        setSubmitted(true);
+        return;
+      }
+
+      setSubmitError(
+        result.error || "We couldn't send your request right now. Please try again in a moment."
+      );
+    } catch {
+      setSubmitError("We couldn't send your request right now. Please try again in a moment.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -31,7 +86,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
 
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-lg bg-obsidian-card hover:bg-slate-800 transition-all"
         >
           <X className="w-5 h-5" />
@@ -106,9 +161,10 @@ export default function StrategyCallModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Brief Goals or Questions</label>
+                <label className="block text-xs font-medium text-slate-300 mb-1">Brief Goals or Questions *</label>
                 <textarea
                   rows="3"
+                  required
                   placeholder="Tell us about your timeline, team size, or growth targets..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -121,23 +177,35 @@ export default function StrategyCallModal({ isOpen, onClose }) {
                 <span>Strict non-disclosure. Response guaranteed within 24 hours.</span>
               </div>
 
+              {submitError && (
+                <div
+                  role="alert"
+                  aria-live="assertive"
+                  className="p-3 rounded-lg bg-red-950/30 border border-red-400/40 text-red-200 text-sm"
+                >
+                  {submitError}
+                </div>
+              )}
+
               <button
                 type="submit"
-                className="w-full py-3.5 px-6 mt-2 rounded-xl btn-gold-glow text-obsidian font-bold text-sm flex items-center justify-center gap-2 tracking-wide uppercase shadow-gold-glow"
+                disabled={submitting}
+                aria-busy={submitting}
+                className="w-full py-3.5 px-6 mt-2 rounded-xl btn-gold-glow text-obsidian font-bold text-sm flex items-center justify-center gap-2 tracking-wide uppercase shadow-gold-glow disabled:opacity-60"
               >
-                <span>Confirm Strategy Session</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>{submitting ? 'Sending...' : 'Confirm Strategy Session'}</span>
+                {!submitting && <ArrowRight className="w-4 h-4" />}
               </button>
             </form>
           </div>
         ) : (
-          <div className="py-8 text-center space-y-4">
+          <div className="py-8 text-center space-y-4" role="status" aria-live="polite">
             <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
               <CheckCircle className="w-10 h-10" />
             </div>
-            <h4 className="text-2xl font-heading font-bold text-white">Strategy Request Reserved</h4>
+            <h4 className="text-2xl font-heading font-bold text-white">Message Sent</h4>
             <p className="text-sm text-slate-300 max-w-xs mx-auto">
-              Thank you, <span className="text-gold-brand font-semibold">{formData.name}</span>. An execution strategist from ARM Digital Services will reach out within 24 hours.
+              Thank you. An execution strategist from ARM Digital Services will reach out within 24 hours.
             </p>
           </div>
         )}

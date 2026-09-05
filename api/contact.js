@@ -133,7 +133,7 @@ export default async function handler(req, res) {
     return errorResponse(res, 400, 'Please provide a valid email address.');
   }
 
-  if (website) {
+  if (website && website.toLowerCase() !== 'not provided') {
     try {
       const parsedWebsite = new URL(website);
 
