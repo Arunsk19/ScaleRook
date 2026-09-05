@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Globe,
@@ -9,9 +9,7 @@ import {
   Sliders,
   Layers,
   CheckCircle2,
-  Sparkles,
-  ArrowRight,
-  ShieldCheck
+  ArrowRight
 } from 'lucide-react';
 
 export default function Services({ onOpenStrategyModal }) {
@@ -32,12 +30,11 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'build',
       num: '01',
-      title: 'SCALE ROOK BUILD',
+      title: 'SCALEROOK BUILD',
       headline: 'Build Your Digital Foundation',
       premise: 'We create the digital infrastructure your business needs to establish a professional presence.',
       objective: 'Turn your business idea into a professional digital presence.',
       icon: Globe,
-      color: 'purple',
       checklist: [
         'Business websites',
         'Corporate websites',
@@ -63,7 +60,6 @@ export default function Services({ onOpenStrategyModal }) {
       premise: 'Your business needs more than a logo. We create the visual and content assets that help businesses communicate, attract attention and build credibility.',
       objective: 'Turn your business into a brand people remember.',
       icon: Palette,
-      color: 'gold',
       checklist: [
         'Brand identity',
         'Logo design',
@@ -88,7 +84,6 @@ export default function Services({ onOpenStrategyModal }) {
       premise: 'We build digital marketing systems designed to increase visibility, engagement, enquiries and customer acquisition.',
       objective: 'Turn attention into opportunities.',
       icon: TrendingUp,
-      color: 'purple',
       checklist: [
         'Social media management',
         'SEO',
@@ -113,7 +108,6 @@ export default function Services({ onOpenStrategyModal }) {
       premise: 'Marketing creates attention. Sales turns opportunities into revenue. Our sales services provide businesses with dedicated outbound and pipeline resources.',
       objective: 'Build conversations that create customers.',
       icon: PhoneCall,
-      color: 'gold',
       checklist: [
         'B2B lead generation',
         'Outbound prospecting',
@@ -138,7 +132,6 @@ export default function Services({ onOpenStrategyModal }) {
       premise: 'Finding the right people can take time and money. ScaleRook supports businesses with vetted, scalable staffing and resource allocation.',
       objective: 'Give businesses access to the people they need to grow.',
       icon: Users,
-      color: 'purple',
       checklist: [
         'Recruitment',
         'Talent sourcing',
@@ -161,7 +154,6 @@ export default function Services({ onOpenStrategyModal }) {
       premise: 'Growth creates operational complexity. Our operational support eliminates administrative bottlenecks.',
       objective: 'Take operational pressure away from the business owner.',
       icon: Sliders,
-      color: 'gold',
       checklist: [
         'Virtual assistance',
         'Customer support',
@@ -184,7 +176,6 @@ export default function Services({ onOpenStrategyModal }) {
       premise: 'Once the foundation is established, we help businesses identify and execute aggressive expansion opportunities.',
       objective: 'Turn a working business into a scalable business.',
       icon: Layers,
-      color: 'purple',
       checklist: [
         'New-market expansion',
         'Sales expansion',
@@ -201,124 +192,94 @@ export default function Services({ onOpenStrategyModal }) {
   ];
 
   return (
-    <div className="pt-28 pb-20 space-y-16">
-      
-      {/* Services Header */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/80 border border-gold-brand/40 shadow-purple-glow">
-          <Sparkles className="w-3.5 h-3.5 text-gold-brand" />
-          <span className="text-xs font-mono tracking-widest text-gold-brand uppercase font-semibold">
-            COMPREHENSIVE CAPABILITY DIRECTORY
-          </span>
-        </div>
-
-        <h1 className="text-4xl md:text-6xl font-heading font-extrabold text-white">
-          Services & Execution Capabilities
-        </h1>
-
-        <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          From your initial web presence to remote teams and market expansion — explore all 7 ScaleRook pillars engineered for end-to-end business growth.
-        </p>
-
-        {/* Pillar Navigation Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 pt-4">
-          {serviceModules.map((m) => (
-            <a
-              key={m.id}
-              href={`#${m.id}`}
-              className="px-3.5 py-1.5 rounded-lg bg-obsidian-card border border-purple-500/20 text-xs font-mono text-slate-300 hover:border-gold-brand hover:text-gold-brand transition"
-            >
-              {m.num} {m.title.replace('SCALEROOK ', '')}
-            </a>
-          ))}
+    <div className="bg-transparent pb-20 pt-28 text-[#F4F0E8]">
+      <section className="ref-shell">
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+          <div className="ref-eyebrow justify-center">Capability directory</div>
+          <h1 className="display-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-none text-[#F4F0E8]">Capabilities & deliverables</h1>
+          <p className="mx-auto max-w-3xl text-base md:text-lg text-[#E2DDD4] font-medium leading-relaxed">
+            From your initial web presence to remote teams and market expansion — explore all 7 ScaleRook pillars engineered for end-to-end business growth.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2 pt-2">
+            {serviceModules.map((m) => (
+              <a key={m.id} href={`#${m.id}`} className="btn-secondary py-2.5 px-3.5 text-[0.62rem] font-bold">
+                {m.num} {m.title.replace('SCALEROOK ', '')}
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Services Deep Dive Modules */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="ref-shell mt-16 space-y-12">
         {serviceModules.map((module) => {
-          const Icon = module.icon;
-          const isGold = module.color === 'gold';
-
           return (
             <div
               key={module.id}
               id={module.id}
               data-section={module.id}
-              className={`p-8 md:p-12 rounded-3xl glass-card border transition-all duration-300 relative overflow-hidden ${
-                isGold ? 'border-gold-brand/40 shadow-gold-glow' : 'border-purple-500/40 shadow-purple-glow'
-              }`}
+              className="editorial-card p-6 md:p-8 xl:p-10"
             >
-              <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl pointer-events-none" style={{
-                background: isGold ? 'rgba(212, 175, 55, 0.1)' : 'rgba(126, 34, 206, 0.1)'
-              }}></div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
-                
-                {/* Left Overview Column */}
-                <div className="lg:col-span-5 space-y-6">
-                  <div className="flex items-center gap-3">
-                    <span className={`font-mono text-sm font-bold ${isGold ? 'text-gold-brand' : 'text-purple-400'}`}>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12 items-stretch">
+                {/* Left Column: 46-48% width, visually dominant typography */}
+                <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-between space-y-6">
+                  {/* Service Number + Category Label */}
+                  <div className="flex items-center gap-5">
+                    <span className="service-marker-number text-[64px] sm:text-[72px] lg:text-[78px] font-extrabold text-[#8D16FF] leading-none select-none">
                       {module.num}
                     </span>
-                    <div className={`p-3 rounded-xl border ${
-                      isGold ? 'bg-amber-950/60 border-gold-brand/40 text-gold-brand' : 'bg-purple-950/60 border-purple-500/40 text-purple-300'
-                    }`}>
-                      <Icon className="w-6 h-6" />
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-[13px] md:text-[15px] tracking-[0.18em] uppercase text-[#D7A62A] font-extrabold">
+                        {module.title}
+                      </span>
+                      <div className="h-[2px] w-14 bg-[#D7A62A]/50" />
                     </div>
-                    <span className="text-xs font-mono uppercase tracking-widest text-slate-400">
-                      {module.title}
+                  </div>
+
+                  {/* Massive Main Heading: 72px–78px on Desktop */}
+                  <h2 className="section-headline text-[38px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[74px] 2xl:text-[76px] font-extrabold leading-[0.98] text-[#F4F0E8] tracking-[-0.035em]">
+                    {module.headline}
+                  </h2>
+
+                  {/* Substantial Description: 18px–20px */}
+                  <p className="service-premise-text text-[17px] md:text-[19px] lg:text-[20px] text-[#E2DDD4] font-medium leading-[1.62]">
+                    {module.premise}
+                  </p>
+
+                  {/* Prominent Objective Box */}
+                  <div className="p-5 md:p-6 bg-[#050505] border border-[rgba(215,166,42,0.3)] space-y-2">
+                    <span className="text-[13px] font-mono text-[#D7A62A] uppercase tracking-widest block font-extrabold">
+                      Objective
                     </span>
-                  </div>
-
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-heading font-extrabold text-white">
-                      {module.headline}
-                    </h2>
-                    <p className="text-sm text-slate-300 leading-relaxed mt-3 font-medium">
-                      {module.premise}
-                    </p>
-                  </div>
-
-                  {/* Objective Badge */}
-                  <div className={`p-4 rounded-xl border space-y-1 ${
-                    isGold ? 'bg-amber-950/40 border-gold-brand/30' : 'bg-purple-950/40 border-purple-500/30'
-                  }`}>
-                    <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block">Pillar Objective</span>
-                    <p className={`text-xs font-heading font-bold ${isGold ? 'text-gold-brand' : 'text-purple-200'}`}>
+                    <p className="text-[16px] md:text-[18px] font-serif font-bold text-[#E5B93F] leading-snug">
                       "{module.objective}"
                     </p>
                   </div>
 
+                  {/* Strong CTA Button: 14px–15px */}
                   <button
                     onClick={onOpenStrategyModal}
-                    className={`w-full py-3 px-5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
-                      isGold
-                        ? 'btn-gold-glow text-obsidian shadow-gold-glow'
-                        : 'bg-purple-brand hover:bg-purple-600 text-white shadow-purple-glow'
-                    }`}
+                    className="btn-gold-rect w-full py-4 px-6 text-[14px] md:text-[15px] uppercase tracking-[0.16em] font-extrabold flex items-center justify-center gap-3"
                   >
                     <span>Request {module.title} Execution</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>→</span>
                   </button>
                 </div>
 
-                {/* Right Complete Checklist Grid */}
-                <div className="lg:col-span-7 p-6 md:p-8 rounded-2xl bg-obsidian-card/90 border border-slate-800 space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <span className="text-xs font-mono text-slate-300 uppercase tracking-wider">
-                      Full Service Checklist ({module.checklist.length} Deliverables)
+                {/* Right Column: Substantial Deliverables Checklist */}
+                <div className="lg:col-span-6 xl:col-span-6 p-6 md:p-8 xl:p-10 bg-[#050505] border border-[rgba(215,166,42,0.25)] flex flex-col justify-between space-y-6">
+                  <div className="flex items-center justify-between border-b border-[rgba(215,166,42,0.25)] pb-4">
+                    <span className="text-[14px] md:text-[15px] font-mono font-extrabold text-[#D7A62A] uppercase tracking-wider">
+                      Deliverables Checklist ({module.checklist.length})
                     </span>
-                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-auto">
                     {module.checklist.map((item, cIdx) => (
                       <div
                         key={cIdx}
-                        className="flex items-center gap-2.5 p-2.5 rounded-lg bg-obsidian/70 border border-slate-800/80 text-xs text-slate-200 hover:border-slate-600 transition"
+                        className="flex items-center gap-3 p-3.5 bg-[#08070A] border border-[rgba(215,166,42,0.22)] text-[15px] md:text-[16px] font-semibold text-[#F4F0E8] leading-snug"
                       >
-                        <CheckCircle2 className={`w-4 h-4 flex-shrink-0 ${isGold ? 'text-gold-brand' : 'text-purple-400'}`} />
+                        <CheckCircle2 className="w-[18px] h-[18px] text-[#7B00FF] flex-shrink-0" />
                         <span>{item}</span>
                       </div>
                     ))}
@@ -333,19 +294,19 @@ export default function Services({ onOpenStrategyModal }) {
 
       {/* Services CTA Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 md:p-12 rounded-3xl gradient-border text-center space-y-6">
-          <h2 className="text-3xl font-heading font-extrabold text-white">
+        <div className="editorial-card p-10 md:p-14 text-center space-y-6 bg-[#08070A] border-2 border-[rgba(215,166,42,0.45)]">
+          <h2 className="text-3xl font-serif font-extrabold text-[#F4F0E8]">
             Need a Customized Combination of Services?
           </h2>
-          <p className="text-sm text-slate-300 max-w-2xl mx-auto">
+          <p className="text-sm text-[#B8B3AE] max-w-2xl mx-auto">
             Our ScaleRook Business Partner model allows you to combine multiple service pillars into one seamless monthly execution retainer.
           </p>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 pt-2">
             <button
               onClick={onOpenStrategyModal}
-              className="px-8 py-4 rounded-xl btn-gold-glow text-obsidian font-bold text-xs uppercase tracking-wider shadow-gold-glow"
+              className="btn-gold-rect px-8 py-4 text-xs font-bold uppercase tracking-wider"
             >
-              Configure Custom Retainer
+              Configure Custom Retainer →
             </button>
           </div>
         </div>

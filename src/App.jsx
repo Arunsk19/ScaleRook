@@ -28,7 +28,6 @@ export default function App() {
   const [overrideThemeKey, setOverrideThemeKey] = useState(null);
   const [activeSectionId, setActiveSectionId] = useState('hero');
 
-  // Automatic IntersectionObserver to detect visible section theme
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('[data-section]');
@@ -51,8 +50,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="relative min-h-screen flex flex-col bg-[#0B0B12] text-slate-100 font-sans selection:bg-purple-600 selection:text-white">
-        {/* Dynamic Background Video Loop System across all pages */}
+      <div className="site-shell relative min-h-screen flex flex-col bg-[#050505] text-[#F3EFE7] selection:bg-[#7B00FF] selection:text-white">
         <BackgroundVideo
           isVideoEnabled={isVideoEnabled}
           overlayDarkness={overlayDarkness}
@@ -60,10 +58,8 @@ export default function App() {
           activeSectionId={activeSectionId}
         />
 
-        {/* Navigation Bar */}
         <Navbar onOpenStrategyModal={() => setIsStrategyModalOpen(true)} />
 
-        {/* Page Content Viewport */}
         <main className="relative z-10 flex-grow">
           <Routes>
             <Route path="/" element={<Home onOpenStrategyModal={() => setIsStrategyModalOpen(true)} />} />
@@ -75,12 +71,10 @@ export default function App() {
           </Routes>
         </main>
 
-        {/* Global Footer */}
         <div className="relative z-10">
           <Footer />
         </div>
 
-        {/* Floating Background Video Control Widget */}
         <BackgroundControls
           isVideoEnabled={isVideoEnabled}
           setIsVideoEnabled={setIsVideoEnabled}
@@ -90,7 +84,6 @@ export default function App() {
           setOverrideThemeKey={setOverrideThemeKey}
         />
 
-        {/* Global Strategy Call Booking Modal */}
         <StrategyCallModal
           isOpen={isStrategyModalOpen}
           onClose={() => setIsStrategyModalOpen(false)}

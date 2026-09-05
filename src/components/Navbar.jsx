@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, PhoneCall, Sparkles } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Logo from './Logo';
 
 export default function Navbar({ onOpenStrategyModal }) {
@@ -10,23 +10,25 @@ export default function Navbar({ onOpenStrategyModal }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Strict immutable navigation order (Left to Right):
+  // 1. OUR MOVE -> /
+  // 2. CAPABILITIES -> /services
+  // 3. BUSINESS PARTNER -> /business-partner
+  // 4. APPROACH -> /about
+  // 5. CONTACT -> /contact
+  // 6. START A CONVERSATION -> CTA Button on far right
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Services', path: '/services' },
-    { name: 'Business Partner', path: '/business-partner' },
-    { name: 'Who We Work With', path: '/about' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'OUR MOVE', path: '/' },
+    { name: 'CAPABILITIES', path: '/services' },
+    { name: 'BUSINESS PARTNER', path: '/business-partner' },
+    { name: 'APPROACH', path: '/about' },
+    { name: 'CONTACT', path: '/contact' },
   ];
 
   const isActive = (path) => {
@@ -36,91 +38,71 @@ export default function Navbar({ onOpenStrategyModal }) {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? 'bg-obsidian/90 backdrop-blur-xl py-3 border-b border-purple-500/20 shadow-glass-card'
-          : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Left: Brand Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <Logo size="medium" showTagline={true} />
+    <header className={`ref-header ${scrolled ? 'shadow-[0_10px_24px_rgba(0,0,0,0.18)]' : ''}`}>
+      <div className="ref-header-inner">
+        {/* LOGO on the far left */}
+        <Link to="/" className="flex items-center gap-3 group shrink-0" aria-label="ScaleRook Home">
+          <Logo size="small" showTagline={false} />
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-obsidian-card/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-purple-500/20">
-          {navLinks.map((link, idx) => (
+        {/* Desktop Navigation: Explicit Left-to-Right order with consistent spacing + CTA on far right */}
+        <div className="hidden lg:flex items-center gap-7 xl:gap-8">
+          <nav className="nav-menu flex items-center gap-6 xl:gap-7" aria-label="Main Navigation">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`nav-link whitespace-nowrap ${isActive(link.path) ? 'active' : ''}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          <button
+            onClick={onOpenStrategyModal}
+            className="btn-gold-rect px-4 py-2.5 shrink-0 whitespace-nowrap"
+          >
+            START A CONVERSATION <span className="ml-1">→</span>
+          </button>
+        </div>
+
+        {/* Mobile Hamburger toggle button */}
+        <div className="flex items-center lg:hidden">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 border border-[rgba(215,166,42,0.3)] bg-[#08070A] text-[#F3EFE7]"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Navigation (Identical order preserved) */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-t border-[rgba(215,166,42,0.15)] bg-[#050505]/98 px-6 py-5 space-y-3">
+          {navLinks.map((link) => (
             <Link
-              key={idx}
+              key={link.path}
               to={link.path}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all ${
-                isActive(link.path)
-                  ? 'text-white bg-gradient-to-r from-purple-brand/40 to-gold-brand/40 border border-gold-brand/40 shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/40'
+              onClick={() => setMobileMenuOpen(false)}
+              className={`block py-2 text-xs font-bold tracking-[0.18em] uppercase ${
+                isActive(link.path) ? 'text-[#F0C34E]' : 'text-[#F4F0E8]/85 hover:text-[#F4F0E8]'
               }`}
             >
               {link.name}
             </Link>
           ))}
-        </nav>
-
-        {/* Right Action Button */}
-        <div className="hidden sm:flex items-center gap-3">
           <button
-            onClick={onOpenStrategyModal}
-            className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full btn-gold-glow text-obsidian font-bold text-xs tracking-wider uppercase overflow-hidden shadow-gold-glow"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenStrategyModal();
+            }}
+            className="btn-gold-rect w-full mt-3 py-3 text-xs font-bold uppercase tracking-wider"
           >
-            <Sparkles className="w-3.5 h-3.5 text-obsidian animate-pulse" />
-            <span>Book Strategy Call</span>
+            START A CONVERSATION →
           </button>
-        </div>
-
-        {/* Mobile Hamburger Button */}
-        <div className="flex items-center gap-2 lg:hidden">
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-obsidian-card border border-purple-500/30 text-slate-200 hover:text-white focus:outline-none"
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-obsidian-card/95 backdrop-blur-2xl border-b border-purple-500/30 px-4 pt-4 pb-6 space-y-3">
-          <div className="flex flex-col space-y-1">
-            {navLinks.map((link, idx) => (
-              <Link
-                key={idx}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-lg text-sm font-semibold transition ${
-                  isActive(link.path)
-                    ? 'text-gold-brand bg-purple-900/30 border-l-4 border-gold-brand'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-
-          <div className="pt-2 border-t border-slate-800">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenStrategyModal();
-              }}
-              className="w-full py-3 rounded-xl btn-gold-glow text-obsidian font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-gold-glow"
-            >
-              <PhoneCall className="w-4 h-4" />
-              <span>Book Strategy Call</span>
-            </button>
-          </div>
         </div>
       )}
     </header>

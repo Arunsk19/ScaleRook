@@ -21,100 +21,206 @@ export default function HeroCanvas() {
     window.addEventListener('resize', handleResize);
 
     // Particle nodes definition
-    const particleCount = Math.min(Math.floor(width / 18), 70);
+    const particleCount = 45;
     const particles = [];
-
-    const colors = [
-      'rgba(126, 34, 206, ',  // Purple
-      'rgba(91, 19, 185, ',   // Deep Electric Purple
-      'rgba(212, 175, 55, ',  // Royal Gold
-      'rgba(245, 158, 11, '   // Honey Accent
-    ];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3 - 0.1,
         radius: Math.random() * 2 + 1,
-        colorPrefix: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.5 + 0.2
+        isGold: i % 3 === 0,
+        alpha: Math.random() * 0.5 + 0.3
       });
     }
 
-    // Grid lines animation phase
-    let step = 0;
+    let time = 0;
 
     const render = () => {
-      step += 0.005;
+      time += 0.015;
       ctx.clearRect(0, 0, width, height);
 
-      // Deep space radial ambient aura
-      const radialGradient = ctx.createRadialGradient(
-        width * 0.5,
-        height * 0.4,
-        50,
-        width * 0.5,
-        height * 0.4,
-        width * 0.75
+      // 1. Dark Chessboard Perspective Floor (Right side / Hero bottom)
+      ctx.save();
+      const horizonY = height * 0.45;
+      const rx = width * 0.72; // Rook center X on desktop
+      const isMobile = width < 1024;
+      const rookCenterX = isMobile ? width * 0.5 : rx;
+      const rookCenterY = isMobile ? height * 0.55 : height * 0.5;
+
+      // Volumetric Purple Fog Glow behind the Rook
+      const auraGrad = ctx.createRadialGradient(
+        rookCenterX,
+        rookCenterY - 40,
+        20,
+        rookCenterX,
+        rookCenterY,
+        width * 0.38
       );
-      radialGradient.addColorStop(0, 'rgba(19, 15, 38, 0.9)');
-      radialGradient.addColorStop(0.5, 'rgba(11, 11, 18, 0.95)');
-      radialGradient.addColorStop(1, '#0B0B12');
-      ctx.fillStyle = radialGradient;
+      auraGrad.addColorStop(0, 'rgba(123, 0, 255, 0.35)');
+      auraGrad.addColorStop(0.5, 'rgba(161, 0, 255, 0.15)');
+      auraGrad.addColorStop(0.8, 'rgba(215, 166, 42, 0.08)');
+      auraGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = auraGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // Render glowing geometric grid lines
-      ctx.strokeStyle = 'rgba(126, 34, 206, 0.05)';
+      // Chessboard Floor Perspective Lines
+      ctx.strokeStyle = 'rgba(215, 166, 42, 0.18)';
       ctx.lineWidth = 1;
-      const gridSize = 60;
-      for (let x = 0; x < width; x += gridSize) {
+      const floorStart = height * 0.55;
+      const floorEnd = height;
+      const colCount = 14;
+
+      for (let i = -7; i <= colCount; i++) {
+        const xBottom = rookCenterX + (i - colCount / 2) * 80;
         ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
+        ctx.moveTo(rookCenterX, horizonY + 80);
+        ctx.lineTo(xBottom, floorEnd);
         ctx.stroke();
       }
-      for (let y = 0; y < height; y += gridSize) {
+
+      for (let j = 1; j <= 8; j++) {
+        const progress = Math.pow(j / 8, 2);
+        const y = horizonY + 80 + progress * (floorEnd - (horizonY + 80));
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(width, y);
+        ctx.strokeStyle = `rgba(123, 0, 255, ${progress * 0.25})`;
         ctx.stroke();
       }
+      ctx.restore();
 
-      // Draw particle mesh network
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
+      // 2. Draw Cinematic 3D Metallic Chess Rook Visual
+      ctx.save();
+      const scale = isMobile ? 0.75 : 1.1;
+      const hoverOffsetY = Math.sin(time * 1.5) * 8;
+      const cx = rookCenterX;
+      const cy = rookCenterY + hoverOffsetY;
+
+      // Shadow on floor
+      const shadowGrad = ctx.createRadialGradient(cx, cy + 180 * scale, 10, cx, cy + 180 * scale, 120 * scale);
+      shadowGrad.addColorStop(0, 'rgba(5, 5, 5, 0.95)');
+      shadowGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = shadowGrad;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + 180 * scale, 120 * scale, 30 * scale, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Base pedestal
+      ctx.fillStyle = '#08070A';
+      ctx.strokeStyle = '#D7A62A';
+      ctx.lineWidth = 2 * scale;
+
+      // Base ring
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + 160 * scale, 85 * scale, 22 * scale, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#0F0E14';
+      ctx.fill();
+      ctx.stroke();
+
+      // Lower pillar shaft
+      ctx.beginPath();
+      ctx.moveTo(cx - 75 * scale, cy + 155 * scale);
+      ctx.lineTo(cx - 45 * scale, cy + 40 * scale);
+      ctx.lineTo(cx + 45 * scale, cy + 40 * scale);
+      ctx.lineTo(cx + 75 * scale, cy + 155 * scale);
+      ctx.closePath();
+
+      const shaftGrad = ctx.createLinearGradient(cx - 75 * scale, cy, cx + 75 * scale, cy);
+      shaftGrad.addColorStop(0, '#0A090E');
+      shaftGrad.addColorStop(0.3, '#1A1724');
+      shaftGrad.addColorStop(0.5, '#2D283E');
+      shaftGrad.addColorStop(0.7, '#15131D');
+      shaftGrad.addColorStop(1, '#08070A');
+      ctx.fillStyle = shaftGrad;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(215, 166, 42, 0.45)';
+      ctx.stroke();
+
+      // Purple Energy Ring across mid section
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + 90 * scale, 55 * scale, 14 * scale, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = '#7B00FF';
+      ctx.shadowColor = '#A100FF';
+      ctx.shadowBlur = 15;
+      ctx.lineWidth = 3 * scale;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Upper Rook Crown / Battlements
+      ctx.beginPath();
+      ctx.ellipse(cx, cy + 35 * scale, 65 * scale, 18 * scale, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#15131D';
+      ctx.fill();
+      ctx.strokeStyle = '#D7A62A';
+      ctx.lineWidth = 2 * scale;
+      ctx.stroke();
+
+      // Battlement Pillars
+      const bW = 125 * scale;
+      const bH = 55 * scale;
+      const bTopY = cy - 35 * scale;
+
+      ctx.beginPath();
+      ctx.moveTo(cx - bW / 2, cy + 35 * scale);
+      ctx.lineTo(cx - bW / 2 - 5 * scale, bTopY);
+      ctx.lineTo(cx + bW / 2 + 5 * scale, bTopY);
+      ctx.lineTo(cx + bW / 2, cy + 35 * scale);
+      ctx.closePath();
+
+      const crownGrad = ctx.createLinearGradient(cx - bW / 2, bTopY, cx + bW / 2, bTopY);
+      crownGrad.addColorStop(0, '#0F0E14');
+      crownGrad.addColorStop(0.4, '#2A2438');
+      crownGrad.addColorStop(0.6, '#3A324E');
+      crownGrad.addColorStop(1, '#0A090E');
+      ctx.fillStyle = crownGrad;
+      ctx.fill();
+      ctx.strokeStyle = '#E5B93F';
+      ctx.stroke();
+
+      // Cutout battlement notches
+      ctx.fillStyle = '#050505';
+      ctx.fillRect(cx - 45 * scale, bTopY - 2, 18 * scale, 22 * scale);
+      ctx.fillRect(cx - 9 * scale, bTopY - 2, 18 * scale, 22 * scale);
+      ctx.fillRect(cx + 27 * scale, bTopY - 2, 18 * scale, 22 * scale);
+
+      // Gold Rim Highlight Line
+      ctx.beginPath();
+      ctx.moveTo(cx - bW / 2 - 4 * scale, bTopY);
+      ctx.lineTo(cx - bW / 2 + 10 * scale, bTopY);
+      ctx.strokeStyle = '#E5B93F';
+      ctx.shadowColor = '#E5B93F';
+      ctx.shadowBlur = 12;
+      ctx.lineWidth = 3 * scale;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Glowing Center Orb inside Rook Top
+      ctx.beginPath();
+      ctx.arc(cx, bTopY + 15 * scale, 12 * scale, 0, Math.PI * 2);
+      ctx.fillStyle = '#7B00FF';
+      ctx.shadowColor = '#A100FF';
+      ctx.shadowBlur = 20;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      ctx.restore();
+
+      // 3. Floating Particles & Energy Streams
+      particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
 
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
-        // Draw particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.colorPrefix + p.alpha + ')';
+        ctx.fillStyle = p.isGold ? `rgba(215, 166, 42, ${p.alpha})` : `rgba(123, 0, 255, ${p.alpha})`;
         ctx.fill();
-
-        // Connect nearby particles with gradient lines
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 140) {
-            const lineAlpha = (1 - dist / 140) * 0.25;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = p.colorPrefix + lineAlpha + ')';
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-      }
+      });
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -130,9 +236,6 @@ export default function HeroCanvas() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
       <canvas ref={canvasRef} className="w-full h-full block" />
-      {/* Subtle purple & gold ambient blur blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-purple-600/15 rounded-full filter blur-[120px] pointer-events-none animate-pulse-slow"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-amber-500/10 rounded-full filter blur-[100px] pointer-events-none animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
     </div>
   );
 }
