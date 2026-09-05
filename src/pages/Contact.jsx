@@ -3,6 +3,8 @@ import { CheckCircle2, ShieldCheck, Mail, Clock, Calendar } from 'lucide-react';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [stage, setStage] = useState('Early Startup');
   const [selectedRequirements, setSelectedRequirements] = useState([
     'Build (Website/Dev)',
@@ -31,9 +33,42 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (submitting) return;
+
+    setSubmitting(true);
+    setSubmitError('');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) {
+        throw new Error('Unable to send your request.');
+      }
+
+      form.reset();
+      setStage('Early Startup');
+      setSelectedRequirements([
+        'Build (Website/Dev)',
+        'Grow (Marketing/SEO)',
+        'Sell (Sales Pipeline)'
+      ]);
+      setSubmitted(true);
+    } catch {
+      setSubmitError("We couldn't send your request right now. Please try again in a moment.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -49,19 +84,13 @@ export default function Contact() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
-          {/* Form Left / Center Column (Netlify Form Integrated) */}
+          {/* Form Left / Center Column */}
           <div className="lg:col-span-7 p-8 md:p-10 editorial-card bg-[#08070A]">
             {!submitted ? (
               <form
-                name="contact-discovery"
-                method="POST"
-                data-netlify="true"
                 onSubmit={handleSubmit}
                 className="space-y-6"
               >
-                {/* Netlify Hidden Form Field */}
-                <input type="hidden" name="form-name" value="contact-discovery" />
-
                 <div className="border-b border-[rgba(215,166,42,0.2)] pb-4">
                   <h3 className="text-2xl md:text-3xl font-serif font-bold text-[#F4F0E8]">Discovery Questionnaire</h3>
                   <p className="text-[15px] md:text-[16px] text-[#E2DDD4] mt-1.5 font-medium leading-relaxed">Fill out the key details below so our strategists can prepare an actionable proposal.</p>
@@ -184,16 +213,27 @@ export default function Contact() {
                   <span>Confidentiality assured. Response guaranteed in less than 24 hours.</span>
                 </div>
 
+                {submitError && (
+                  <div
+                    role="alert"
+                    aria-live="assertive"
+                    className="p-3.5 bg-red-950/30 border border-red-400/40 text-red-200 text-sm"
+                  >
+                    {submitError}
+                  </div>
+                )}
+
                 <button
                   type="submit"
+                  disabled={submitting}
                   className="btn-gold-rect w-full py-4 text-[14px] md:text-[15px] font-extrabold uppercase tracking-wider flex items-center justify-center gap-2"
                 >
-                  <span>Request Strategic Execution Plan</span>
-                  <span>→</span>
+                  <span>{submitting ? 'Sending Request...' : 'Request Strategic Execution Plan'}</span>
+                  {!submitting && <span>→</span>}
                 </button>
               </form>
             ) : (
-              <div className="py-16 text-center space-y-6">
+              <div className="py-16 text-center space-y-6" role="status" aria-live="polite">
                 <div className="w-16 h-16 bg-[#7B00FF]/20 text-[#E5B93F] border border-[#D7A62A] flex items-center justify-center mx-auto">
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
@@ -228,8 +268,8 @@ export default function Contact() {
                   <Mail className="w-5 h-5 text-[#7B00FF] flex-shrink-0 mt-0.5" />
                   <div className="space-y-1">
                     <strong className="text-[#F4F0E8] block text-[15px] font-semibold">Direct Email Contact</strong>
-                    <span className="text-[#E5B93F] font-mono text-[14px] font-semibold block">strategy@scalerook.com</span>
-                    <span className="text-[#B8B3AE] block text-xs">CC: contact@armdigitalservices.com</span>
+                    <span className="text-[#E5B93F] font-mono text-[14px] font-semibold block">yokeshmanivannan2000@gmail.com</span>
+                    <span className="text-[#B8B3AE] block text-xs">Website: SCALEROOKS.COM</span>
                   </div>
                 </div>
 
