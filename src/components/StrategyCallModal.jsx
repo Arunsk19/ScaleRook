@@ -82,7 +82,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all">
-      <div className="relative w-full max-w-lg p-6 md:p-8 rounded-2xl glass-card border border-purple-500/30 shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-lg p-6 md:p-8 rounded-2xl glass-card border border-purple-500/30 shadow-2xl">
         {/* Glowing aura inside modal */}
         <div className="absolute -top-24 -right-24 w-48 h-48 bg-gold-brand/20 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-brand/20 rounded-full blur-3xl pointer-events-none"></div>
@@ -205,9 +205,9 @@ export default function StrategyCallModal({ isOpen, onClose }) {
                 type="submit"
                 disabled={submitting}
                 aria-busy={submitting}
-                className="w-full py-3.5 px-6 mt-2 rounded-xl btn-gold-glow text-obsidian font-bold text-sm flex items-center justify-center gap-2 tracking-wide uppercase shadow-gold-glow disabled:opacity-60"
+                className="btn-gold-rect w-full py-4 mt-2 text-[14px] md:text-[15px] font-extrabold uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-60"
               >
-                <span>{submitting ? 'Sending...' : 'Confirm Strategy Session'}</span>
+                <span>{submitting ? 'Sending...' : 'Start a Conversation'}</span>
                 {!submitting && <ArrowRight className="w-4 h-4" />}
               </button>
             </form>
