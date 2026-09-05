@@ -1,5 +1,5 @@
 const recipient = 'yokeshmanivannan2000@gmail.com';
-
+const defaultFrom = 'onboarding@resend.dev';
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const fieldLimits = {
@@ -35,6 +35,54 @@ function escapeHtml(value) {
   }[character]));
 }
 
+function sanitizeDiagnostic(value) {
+  return String(value || '')
+    .replace(/Bearer\s+\S+/gi, 'Bearer [redacted]')
+    .replace(/re_[A-Za-z0-9_]+/g, '[redacted]')
+    .slice(0, 500);
+}
+
+function extractEmailAddress(value) {
+  const trimmed = String(value || '').trim();
+  const angled = trimmed.match(/<([^>]+)>/);
+  return (angled ? angled[1] : trimmed).trim().toLowerCase();
+}
+
+function resolveFromAddress() {
+  const configured = typeof process.env.CONTACT_FROM_EMAIL === 'string'
+    ? process.env.CONTACT_FROM_EMAIL.trim()
+    : '';
+
+  if (!configured) {
+    return defaultFrom;
+  }
+
+  const address = extractEmailAddress(configured);
+  const domain = address.split('@')[1] || '';
+
+  // Resend only sends from verified domains. The test sender works
+  // without verification; custom domains fail until they are verified.
+  if (domain === 'resend.dev' && emailPattern.test(address)) {
+    return configured;
+  }
+
+  return defaultFrom;
+}
+
+function parseRequestBody(req) {
+  if (Buffer.isBuffer(req.body)) {
+    const text = req.body.toString('utf8').trim();
+    return text ? JSON.parse(text) : {};
+  }
+
+  if (typeof req.body === 'string') {
+    const text = req.body.trim();
+    return text ? JSON.parse(text) : {};
+  }
+
+  return req.body;
+}
+
 function emailRow(label, value) {
   return `
     <tr>
@@ -51,44 +99,28 @@ function emailRow(label, value) {
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-
-    return errorResponse(
-      res,
-      405,
-      'Method not allowed.'
-    );
+    return errorResponse(res, 405, 'Method not allowed.');
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = typeof process.env.RESEND_API_KEY === 'string'
+    ? process.env.RESEND_API_KEY.trim()
+    : '';
 
   if (!apiKey) {
-    return errorResponse(
-      res,
-      500,
-      'Unable to send your request.'
-    );
+    console.error('Contact API configuration error: missing RESEND_API_KEY');
+    return errorResponse(res, 500, 'Unable to send your request.');
   }
 
   let body;
 
   try {
-    body = typeof req.body === 'string'
-      ? JSON.parse(req.body)
-      : req.body;
+    body = parseRequestBody(req);
   } catch {
-    return errorResponse(
-      res,
-      400,
-      'Invalid request.'
-    );
+    return errorResponse(res, 400, 'Invalid request.');
   }
 
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
-    return errorResponse(
-      res,
-      400,
-      'Invalid request.'
-    );
+    return errorResponse(res, 400, 'Invalid request.');
   }
 
   const fields = Object.fromEntries(
@@ -112,61 +144,35 @@ export default async function handler(req, res) {
     [fullName, email, company, stage, requirements, projectDetails]
       .some((field) => !field)
   ) {
-    return errorResponse(
-      res,
-      400,
-      'Please complete all required fields.'
-    );
+    return errorResponse(res, 400, 'Please complete all required fields.');
   }
 
   if (
     Object.entries(fields).some(
-      ([field, value]) =>
-        value.length > fieldLimits[field]
+      ([field, value]) => value.length > fieldLimits[field]
     )
   ) {
-    return errorResponse(
-      res,
-      400,
-      'One or more fields are too long.'
-    );
+    return errorResponse(res, 400, 'One or more fields are too long.');
   }
 
   if (!emailPattern.test(email)) {
-    return errorResponse(
-      res,
-      400,
-      'Please provide a valid email address.'
-    );
+    return errorResponse(res, 400, 'Please provide a valid email address.');
   }
 
   if (website) {
     try {
       const parsedWebsite = new URL(website);
 
-      if (
-        !['http:', 'https:'].includes(
-          parsedWebsite.protocol
-        )
-      ) {
+      if (!['http:', 'https:'].includes(parsedWebsite.protocol)) {
         throw new Error('Invalid protocol');
       }
     } catch {
-      return errorResponse(
-        res,
-        400,
-        'Please provide a valid website URL.'
-      );
+      return errorResponse(res, 400, 'Please provide a valid website URL.');
     }
   }
 
-  const from =
-    process.env.CONTACT_FROM_EMAIL ||
-    'onboarding@resend.dev';
-
-  const subject =
-    `New ScaleRooks Project Enquiry — ${fullName}`;
-
+  const from = resolveFromAddress();
+  const subject = `New ScaleRooks Project Enquiry — ${fullName}`;
   const submitted = new Date().toISOString();
 
   const html = `
@@ -206,50 +212,41 @@ export default async function handler(req, res) {
 `;
 
   try {
-    const resendResponse = await fetch(
-      'https://api.resend.com/emails',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from,
-          to: [recipient],
-          reply_to: email,
-          subject,
-          html,
-        }),
-      }
-    );
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from,
+        to: ['yokeshmanivannan2000@gmail.com'],
+        reply_to: email,
+        subject,
+        html,
+      }),
+    });
 
     const resendText = await resendResponse.text();
 
-    console.log('Resend status:', resendResponse.status);
-    console.log('Resend response:', resendText);
-
     if (!resendResponse.ok) {
-      console.error('Resend email request failed:', {
+      console.error('Resend email request failed', {
         status: resendResponse.status,
-        response: resendText,
+        body: sanitizeDiagnostic(resendText),
       });
 
-      return errorResponse(
-        res,
-        502,
-        'Unable to send your request.'
-      );
+      return errorResponse(res, 502, 'Unable to send your request.');
     }
 
     return res.status(200).json({
       success: true,
     });
-  } catch {
-    return errorResponse(
-      res,
-      502,
-      'Unable to send your request.'
-    );
+  } catch (error) {
+    console.error('Resend email request threw', {
+      name: error?.name,
+      message: sanitizeDiagnostic(error?.message),
+    });
+
+    return errorResponse(res, 502, 'Unable to send your request.');
   }
 }

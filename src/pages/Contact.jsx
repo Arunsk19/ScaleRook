@@ -42,12 +42,22 @@ export default function Contact() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const payload = {
+      fullName: String(formData.get('fullName') || ''),
+      email: String(formData.get('email') || ''),
+      company: String(formData.get('company') || ''),
+      website: String(formData.get('website') || ''),
+      stage: String(formData.get('stage') || ''),
+      requirements: String(formData.get('requirements') || ''),
+      projectDetails: String(formData.get('projectDetails') || ''),
+    };
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(payload),
       });
 
