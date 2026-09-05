@@ -162,7 +162,8 @@
 
 .rook-stage {
   top: 50%;
-  right: 8%;
+  left: 50%;
+  right: auto;
   width: min(68vw, 1000px);
 }
 
@@ -387,7 +388,7 @@
 
 @media (max-width: 1279px) {
   .rook-stage {
-    right: 1%;
+    right: auto;
     width: min(66vw, 760px);
   }
 }
@@ -404,7 +405,7 @@
 
   .rook-stage {
     top: 53%;
-    right: -8%;
+    right: auto;
     width: min(72vw, 620px);
   }
 
@@ -451,7 +452,7 @@
 
   .rook-stage {
     top: 59%;
-    right: -24%;
+    right: auto;
     width: 112vw;
   }
 

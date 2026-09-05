@@ -175,7 +175,7 @@ export default function CinematicRookHero() {
       <div
         className="rook-stage absolute z-[3] transition-transform duration-700 ease-out will-change-transform"
         style={{
-          transform: `translate3d(${parallaxX}px, calc(-50% + ${parallaxY}px), 0)`,
+          transform: `translate3d(calc(-50% + ${parallaxX}px), calc(-50% + ${parallaxY}px), 0)`,
         }}
       >
         <div
