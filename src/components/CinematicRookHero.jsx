@@ -59,8 +59,8 @@ export default function CinematicRookHero() {
     };
     window.addEventListener('resize', handleResize);
 
-    // Tactical particles
-    const particleCount = 28;
+    // Keep the atmospheric layer lighter on smaller devices.
+    const particleCount = w < 640 ? 10 : w < 1024 ? 18 : 28;
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -173,35 +173,36 @@ export default function CinematicRookHero() {
 
       {/* Layer 6: MASSIVE Cinematic 3D Dark Metallic Chess Rook (Central Visual Dominance) */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 right-[-10%] sm:right-[-4%] md:right-[2%] lg:right-[6%] xl:right-[10%] 2xl:right-[14%] z-[3] transition-transform duration-700 ease-out will-change-transform"
+        className="rook-stage absolute z-[3] transition-transform duration-700 ease-out will-change-transform"
         style={{
           transform: `translate3d(${parallaxX}px, calc(-50% + ${parallaxY}px), 0)`,
         }}
       >
         <div
-          className={`relative group ${
+          className={`rook-shell relative group ${
             reducedMotion ? '' : 'rook-cinematic-float'
           }`}
         >
           {/* Floor contact shadow */}
-          <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-[80%] h-24 bg-[radial-gradient(ellipse,_rgba(5,5,5,0.98)_0%,_rgba(5,5,5,0.6)_45%,_transparent_75%)] filter blur-2xl pointer-events-none" />
+          <div className="rook-contact-shadow absolute -bottom-16 left-1/2 -translate-x-1/2 pointer-events-none" />
 
           {/* Dynamic rim glow underlay */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_45%,_rgba(123,0,255,0.38)_0%,_transparent_60%),radial-gradient(circle_at_75%_45%,_rgba(215,166,42,0.32)_0%,_transparent_60%)] filter blur-3xl opacity-75 scale-110 pointer-events-none" />
+          <div className="rook-environment-glow absolute inset-0 pointer-events-none" />
 
           {/* Monumental High-definition 3D Rook Piece Image: 700px-940px on Desktop */}
           <img
             src="/cinematic-rook.jpg"
             alt=""
             loading="eager"
-            className="w-[360px] sm:w-[500px] md:w-[650px] lg:w-[780px] xl:w-[900px] 2xl:w-[1000px] max-w-none h-auto object-contain object-center drop-shadow-[0_30px_70px_rgba(0,0,0,0.98)] opacity-95 transition-opacity duration-1000"
+            className="rook-image h-auto max-w-none object-contain object-center transition-opacity duration-1000"
             style={{
               // Mask the image edges smoothly into the obsidian dark background
-              maskImage: 'radial-gradient(ellipse 92% 94% at 50% 50%, black 72%, transparent 100%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 92% 94% at 50% 50%, black 72%, transparent 100%)',
-              filter: 'contrast(1.12) brightness(1.02)',
+              maskImage: 'radial-gradient(ellipse 52% 74% at 50% 47%, black 34%, rgba(0,0,0,0.88) 56%, transparent 92%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 52% 74% at 50% 47%, black 34%, rgba(0,0,0,0.88) 56%, transparent 92%)',
             }}
           />
+
+          <div className="rook-atmosphere absolute inset-0 pointer-events-none" />
 
           {/* Strategic Chess Coordinate HUD Markers */}
           <div className="hidden lg:flex absolute -left-16 top-1/2 -translate-y-1/2 flex-col gap-10 text-[11px] font-mono text-[#D7A62A]/40 tracking-widest uppercase">

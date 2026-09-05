@@ -46,7 +46,7 @@ export default function Navbar({ onOpenStrategyModal }) {
         </Link>
 
         {/* Desktop Navigation: Explicit Left-to-Right order with consistent spacing + CTA on far right */}
-        <div className="hidden lg:flex items-center gap-7 xl:gap-8">
+        <div className="hidden xl:flex items-center gap-7 xl:gap-8">
           <nav className="nav-menu flex items-center gap-6 xl:gap-7" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <Link
@@ -68,7 +68,7 @@ export default function Navbar({ onOpenStrategyModal }) {
         </div>
 
         {/* Mobile Hamburger toggle button */}
-        <div className="flex items-center lg:hidden">
+        <div className="flex items-center xl:hidden">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 border border-[rgba(215,166,42,0.3)] bg-[#08070A] text-[#F3EFE7]"
@@ -81,7 +81,7 @@ export default function Navbar({ onOpenStrategyModal }) {
 
       {/* Mobile Drawer Navigation (Identical order preserved) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-[rgba(215,166,42,0.15)] bg-[#050505]/98 px-6 py-5 space-y-3">
+        <div className="xl:hidden border-t border-[rgba(215,166,42,0.15)] bg-[#050505]/98 px-6 py-5 space-y-3">
           {navLinks.map((link) => (
             <Link
               key={link.path}

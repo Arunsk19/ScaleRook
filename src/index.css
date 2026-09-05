@@ -160,6 +160,53 @@
   isolation: isolate;
 }
 
+.rook-stage {
+  top: 50%;
+  right: 8%;
+  width: min(68vw, 1000px);
+}
+
+.rook-shell {
+  width: 100%;
+  isolation: isolate;
+}
+
+.rook-image {
+  display: block;
+  width: 100%;
+  opacity: 0.82;
+  mix-blend-mode: screen;
+  filter: saturate(0.78) contrast(1.08) brightness(0.82);
+  clip-path: ellipse(49% 48% at 50% 46%);
+  -webkit-user-drag: none;
+}
+
+.rook-contact-shadow {
+  width: 72%;
+  height: 4.5rem;
+  background: radial-gradient(ellipse, rgba(2, 2, 4, 0.7) 0%, rgba(2, 2, 4, 0.28) 48%, transparent 76%);
+  filter: blur(22px);
+}
+
+.rook-environment-glow {
+  background:
+    radial-gradient(ellipse at 34% 46%, rgba(123, 0, 255, 0.2), transparent 48%),
+    radial-gradient(ellipse at 70% 46%, rgba(215, 166, 42, 0.14), transparent 48%);
+  filter: blur(34px);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  transform: scale(1.05);
+}
+
+.rook-atmosphere {
+  background:
+    radial-gradient(ellipse at 50% 38%, transparent 35%, rgba(5, 5, 8, 0.18) 68%, rgba(5, 5, 8, 0.62) 100%),
+    linear-gradient(90deg, rgba(123, 0, 255, 0.08), transparent 34%, rgba(215, 166, 42, 0.08));
+  mix-blend-mode: soft-light;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
 .hero-cinematic-media {
   position: absolute;
   inset: 0;
@@ -336,6 +383,112 @@
   background: linear-gradient(180deg, rgba(245, 158, 11, 0), rgba(245, 158, 11, 1), rgba(245, 158, 11, 0));
   box-shadow: 0 0 14px rgba(245, 158, 11, 0.8);
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@media (max-width: 1279px) {
+  .rook-stage {
+    right: 1%;
+    width: min(66vw, 760px);
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-cinematic {
+    min-height: 44rem;
+  }
+
+  .hero-content {
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+  }
+
+  .rook-stage {
+    top: 53%;
+    right: -8%;
+    width: min(72vw, 620px);
+  }
+
+  .rook-image {
+    opacity: 0.62;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-cinematic {
+    min-height: 42rem;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+    padding: 6rem 1rem 4rem;
+  }
+
+  .hero-headline {
+    max-width: 22rem;
+    font-size: clamp(2.45rem, 11vw, 3.6rem);
+  }
+
+  .hero-subheadline {
+    max-width: 31rem;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .hero-cta-row {
+    width: 100%;
+    gap: 0.75rem;
+    margin-top: 1.8rem;
+  }
+
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem 1rem;
+    font-size: 0.72rem;
+  }
+
+  .rook-stage {
+    top: 59%;
+    right: -24%;
+    width: 112vw;
+  }
+
+  .rook-image {
+    opacity: 0.48;
+    filter: saturate(0.68) contrast(1.04) brightness(0.76);
+  }
+
+  .rook-environment-glow {
+    opacity: 0.46;
+  }
+
+  .hero-glow {
+    width: 24rem;
+    height: 24rem;
+    filter: blur(64px);
+  }
+}
+
+@media (max-width: 374px) {
+  .hero-cinematic {
+    min-height: 40rem;
+  }
+
+  .hero-content {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .hero-badge {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .hero-headline {
+    font-size: 2.35rem;
+  }
 }
 
 @keyframes pulse-glow {
