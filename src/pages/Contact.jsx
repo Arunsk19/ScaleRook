@@ -64,7 +64,7 @@ export default function Contact() {
 
       const result = await response.json().catch(() => ({}));
 
-      if (response.status === 200 && result.success) {
+      if (response.status === 200 && result.success === true) {
         form.reset();
         setStage('Early Startup');
         setSelectedRequirements([

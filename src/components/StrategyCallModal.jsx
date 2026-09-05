@@ -4,6 +4,7 @@ import { X, CheckCircle, Calendar, ArrowRight, ShieldCheck } from 'lucide-react'
 const initialFormData = {
   name: '',
   email: '',
+  contactNumber: '',
   company: '',
   serviceNeed: 'ScaleRooks Build',
   message: ''
@@ -31,10 +32,11 @@ export default function StrategyCallModal({ isOpen, onClose }) {
 
     const fullName = formData.name.trim();
     const email = formData.email.trim();
+    const contactNumber = formData.contactNumber.trim();
     const company = formData.company.trim() || 'Home Page Enquiry';
     const projectDetails = formData.message.trim();
 
-    if (!fullName || !email || !company || !projectDetails) {
+    if (!fullName || !email || !contactNumber || !company || !projectDetails) {
       setSubmitError('Please complete all required fields.');
       return;
     }
@@ -51,7 +53,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
         body: JSON.stringify({
           fullName,
           email,
-          contactNumber: 'Not provided',
+          contactNumber,
           company,
           website: 'Not provided',
           stage: 'Not specified',
@@ -62,7 +64,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
 
       const result = await response.json().catch(() => ({}));
 
-      if (response.ok === true && result.success === true) {
+      if (response.status === 200 && result.success === true) {
         setFormData(initialFormData);
         setSubmitted(true);
         return;
@@ -128,6 +130,17 @@ export default function StrategyCallModal({ isOpen, onClose }) {
                     placeholder="sarah@company.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg bg-obsidian-card border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-gold-brand transition"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">Contact Number *</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+91 98765 43210"
+                    value={formData.contactNumber}
+                    onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-lg bg-obsidian-card border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-gold-brand transition"
                   />
                 </div>
