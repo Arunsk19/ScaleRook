@@ -51,6 +51,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
         body: JSON.stringify({
           fullName,
           email,
+          contactNumber: 'Not provided',
           company,
           website: 'Not provided',
           stage: 'Not specified',

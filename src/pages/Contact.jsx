@@ -45,6 +45,7 @@ export default function Contact() {
     const payload = {
       fullName: String(formData.get('fullName') || ''),
       email: String(formData.get('email') || ''),
+      contactNumber: String(formData.get('contactNumber') || ''),
       company: String(formData.get('company') || ''),
       website: String(formData.get('website') || ''),
       stage: String(formData.get('stage') || ''),
@@ -140,8 +141,19 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Field 2: Company Name & Current Website */}
+                {/* Field 2: Contact Number & Company Name */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="contact-number" className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Contact Number *</label>
+                    <input
+                      id="contact-number"
+                      type="tel"
+                      name="contactNumber"
+                      required
+                      placeholder="+91 98765 43210"
+                      className="w-full px-4 py-3 bg-[#050505] border border-[rgba(215,166,42,0.3)] text-[#F4F0E8] placeholder-[#B8B3AE]/50 focus:outline-none focus:border-[#E5B93F]"
+                    />
+                  </div>
                   <div>
                     <label htmlFor="company-name" className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Company Name *</label>
                     <input
@@ -153,16 +165,18 @@ export default function Contact() {
                       className="w-full px-4 py-3 bg-[#050505] border border-[rgba(215,166,42,0.3)] text-[#F4F0E8] placeholder-[#B8B3AE]/50 focus:outline-none focus:border-[#E5B93F]"
                     />
                   </div>
-                  <div>
-                    <label htmlFor="current-website" className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Current Website (if any)</label>
-                    <input
-                      id="current-website"
-                      type="url"
-                      name="website"
-                      placeholder="https://company.com"
-                      className="w-full px-4 py-3 bg-[#050505] border border-[rgba(215,166,42,0.3)] text-[#F4F0E8] placeholder-[#B8B3AE]/50 focus:outline-none focus:border-[#E5B93F]"
-                    />
-                  </div>
+                </div>
+
+                {/* Field 3: Current Website */}
+                <div>
+                  <label htmlFor="current-website" className="block text-xs font-mono text-[#D7A62A] uppercase mb-1">Current Website (if any)</label>
+                  <input
+                    id="current-website"
+                    type="url"
+                    name="website"
+                    placeholder="https://company.com"
+                    className="w-full px-4 py-3 bg-[#050505] border border-[rgba(215,166,42,0.3)] text-[#F4F0E8] placeholder-[#B8B3AE]/50 focus:outline-none focus:border-[#E5B93F]"
+                  />
                 </div>
 
                 {/* Field 3: Business Stage Selector */}

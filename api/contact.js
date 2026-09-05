@@ -4,6 +4,7 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const fieldLimits = {
   fullName: 120,
   email: 254,
+  contactNumber: 30,
   company: 160,
   website: 500,
   stage: 100,
@@ -107,6 +108,7 @@ export default async function handler(req, res) {
   const {
     fullName,
     email,
+    contactNumber,
     company,
     website,
     stage,
@@ -115,7 +117,7 @@ export default async function handler(req, res) {
   } = fields;
 
   if (
-    [fullName, email, company, stage, requirements, projectDetails]
+    [fullName, email, contactNumber, company, stage, requirements, projectDetails]
       .some((field) => !field)
   ) {
     return errorResponse(res, 400, 'Please complete all required fields.');
@@ -167,7 +169,8 @@ export default async function handler(req, res) {
 
       <table style="width:100%;margin-top:24px;border-collapse:collapse;background:#100d15;">
         ${emailRow('Full Name', fullName)}
-        ${emailRow('Email', email)}
+        ${emailRow('Work Email', email)}
+        ${emailRow('Contact Number', contactNumber)}
         ${emailRow('Company', company)}
         ${emailRow('Website', website || 'Not provided')}
         ${emailRow('Business Stage', stage)}
