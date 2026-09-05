@@ -40,12 +40,12 @@ export default function About({ onOpenStrategyModal }) {
   return (
     <div className="bg-transparent pb-20 pt-28 text-[#F4F0E8]">
       <section className="ref-shell text-center space-y-6">
-        <div className="ref-eyebrow justify-center">About ScaleRook</div>
+        <div className="ref-eyebrow justify-center">About ScaleRooks</div>
         <h1 className="hero-headline text-[#F4F0E8] max-w-5xl mx-auto">
           Who We Work With & Our Story
         </h1>
         <p className="mx-auto max-w-3xl text-lg md:text-[21px] text-[#E2DDD4] font-medium leading-[1.65]">
-          ScaleRook was founded on a simple truth: turning ambition into a thriving enterprise requires strategic moves, execution muscle, and unified discipline.
+          ScaleRooks was founded on a simple truth: turning ambition into a thriving enterprise requires strategic moves, execution muscle, and unified discipline.
         </p>
       </section>
 
@@ -96,7 +96,7 @@ export default function About({ onOpenStrategyModal }) {
               </div>
               <h3 className="text-2xl md:text-[26px] font-serif font-bold text-[#E5B93F] leading-tight">Custom Alignment</h3>
               <p className="text-[15px] md:text-[16px] text-[#E2DDD4] font-medium leading-relaxed">
-                Whether you need a single landing page or a 10-person dedicated remote sales and ops department, ScaleRook scales dynamically with your stage.
+                Whether you need a single landing page or a 10-person dedicated remote sales and ops department, ScaleRooks scales dynamically with your stage.
               </p>
             </div>
 
@@ -141,7 +141,7 @@ export default function About({ onOpenStrategyModal }) {
               Corporate Heritage & Affiliation
             </h3>
             <p className="text-base md:text-[18px] text-[#E2DDD4] font-medium leading-relaxed">
-              ScaleRook is a specialized corporate brand operating under the umbrella of <strong className="text-[#E5B93F]">ARM Digital Services</strong> — delivering enterprise-grade web architecture, creative media, digital marketing, outbound sales development, and remote staffing globally.
+              ScaleRooks is a specialized corporate brand operating under the umbrella of <strong className="text-[#E5B93F]">ARM Digital Services</strong> — delivering enterprise-grade web architecture, creative media, digital marketing, outbound sales development, and remote staffing globally.
             </p>
           </div>
 

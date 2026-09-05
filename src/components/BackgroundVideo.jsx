@@ -12,7 +12,7 @@ export const SECTION_THEMES = {
     mode: 'hero-cinematic'
   },
   'build': {
-    name: '01 — ScaleRook Build',
+    name: '01 — ScaleRooks Build',
     badge: 'Digital Foundation',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-blue-glowing-lines-on-a-dark-background-42843-large.mp4',
     poster: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop',
@@ -21,7 +21,7 @@ export const SECTION_THEMES = {
     mode: 'blueprint'
   },
   'creative': {
-    name: '02 — ScaleRook Creative',
+    name: '02 — ScaleRooks Creative',
     badge: 'Brand & Identity',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-abstract-animation-of-glowing-gold-particles-42861-large.mp4',
     poster: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
@@ -30,7 +30,7 @@ export const SECTION_THEMES = {
     mode: 'fluid-ribbons'
   },
   'grow': {
-    name: '03 — ScaleRook Grow',
+    name: '03 — ScaleRooks Grow',
     badge: 'Acquisition & Reach',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-data-42777-large.mp4',
     poster: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop',
@@ -39,7 +39,7 @@ export const SECTION_THEMES = {
     mode: 'signal-waves'
   },
   'sell': {
-    name: '04 — ScaleRook Sell',
+    name: '04 — ScaleRooks Sell',
     badge: 'Sales Pipeline',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-lines-in-motion-42851-large.mp4',
     poster: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop',
@@ -48,7 +48,7 @@ export const SECTION_THEMES = {
     mode: 'funnel-stream'
   },
   'talent': {
-    name: '05 — ScaleRook Talent',
+    name: '05 — ScaleRooks Talent',
     badge: 'Remote Staffing',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-network-of-glowing-dots-and-lines-42855-large.mp4',
     poster: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
@@ -57,7 +57,7 @@ export const SECTION_THEMES = {
     mode: 'cluster-constellation'
   },
   'operate': {
-    name: '06 — ScaleRook Operate',
+    name: '06 — ScaleRooks Operate',
     badge: 'Systems & Operations',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-abstract-circular-glowing-lines-42865-large.mp4',
     poster: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop',
@@ -66,7 +66,7 @@ export const SECTION_THEMES = {
     mode: 'process-rings'
   },
   'scale': {
-    name: '07 — ScaleRook Scale',
+    name: '07 — ScaleRooks Scale',
     badge: 'Expansion & Scale',
     videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-background-loop-28784-large.mp4',
     poster: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1200&auto=format&fit=crop',

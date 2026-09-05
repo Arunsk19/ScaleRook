@@ -14,7 +14,7 @@ export default function Footer() {
               <Logo size="small" showTagline={false} />
             </Link>
             <div className="flex flex-col gap-2">
-              <div className="text-xs font-bold tracking-[0.2em] uppercase text-[#D7A62A]">ScaleRook</div>
+              <div className="text-xs font-bold tracking-[0.2em] uppercase text-[#D7A62A]">ScaleRooks</div>
               <div className="text-[0.68rem] font-medium tracking-[0.18em] uppercase text-[#E2DDD4]">Strategic Moves. Scalable Growth.</div>
             </div>
           </div>
@@ -40,7 +40,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="text-[0.68rem] font-bold tracking-[0.2em] uppercase text-[#D7A62A]">Brand</div>
             <div className="footer-muted">A brand of ARM Digital Services</div>
-            <div className="footer-muted">© {currentYear} ScaleRook</div>
+            <div className="footer-muted">© {currentYear} ScaleRooks</div>
           </div>
         </div>
       </div>

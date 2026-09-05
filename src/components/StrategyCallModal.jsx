@@ -7,7 +7,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
     name: '',
     email: '',
     company: '',
-    serviceNeed: 'ScaleRook Build',
+    serviceNeed: 'ScaleRooks Build',
     message: ''
   });
 
@@ -47,7 +47,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
               Book Your Strategic Call
             </h3>
             <p className="text-sm text-slate-300 mb-6 leading-relaxed">
-              Connect directly with a ScaleRook execution strategist to align on your growth goals, digital foundation, or remote team needs.
+              Connect directly with a ScaleRooks execution strategist to align on your growth goals, digital foundation, or remote team needs.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -79,7 +79,7 @@ export default function StrategyCallModal({ isOpen, onClose }) {
                   <label className="block text-xs font-medium text-slate-300 mb-1">Company Name</label>
                   <input
                     type="text"
-                    placeholder="ScaleRook Ltd"
+                    placeholder="ScaleRooks Ltd"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     className="w-full px-4 py-2.5 rounded-lg bg-obsidian-card border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:border-gold-brand transition"
@@ -94,13 +94,13 @@ export default function StrategyCallModal({ isOpen, onClose }) {
                   onChange={(e) => setFormData({ ...formData, serviceNeed: e.target.value })}
                   className="w-full px-4 py-2.5 rounded-lg bg-obsidian-card border border-slate-700/80 text-white focus:outline-none focus:border-gold-brand transition"
                 >
-                  <option value="ScaleRook Build">ScaleRook Build (Websites & Foundation)</option>
-                  <option value="ScaleRook Creative">ScaleRook Creative (Brand & Media)</option>
-                  <option value="ScaleRook Grow">ScaleRook Grow (Digital Marketing & Traffic)</option>
-                  <option value="ScaleRook Sell">ScaleRook Sell (Sales & Outbound Pipeline)</option>
-                  <option value="ScaleRook Talent">ScaleRook Talent (Remote Staffing & Teams)</option>
-                  <option value="ScaleRook Operate">ScaleRook Operate (Operations & Virtual Assistance)</option>
-                  <option value="ScaleRook Scale">ScaleRook Scale (Market & Systems Expansion)</option>
+                  <option value="ScaleRooks Build">ScaleRooks Build (Websites & Foundation)</option>
+                  <option value="ScaleRooks Creative">ScaleRooks Creative (Brand & Media)</option>
+                  <option value="ScaleRooks Grow">ScaleRooks Grow (Digital Marketing & Traffic)</option>
+                  <option value="ScaleRooks Sell">ScaleRooks Sell (Sales & Outbound Pipeline)</option>
+                  <option value="ScaleRooks Talent">ScaleRooks Talent (Remote Staffing & Teams)</option>
+                  <option value="ScaleRooks Operate">ScaleRooks Operate (Operations & Virtual Assistance)</option>
+                  <option value="ScaleRooks Scale">ScaleRooks Scale (Market & Systems Expansion)</option>
                   <option value="Complete Business Partner">Complete Business Partner Retainer</option>
                 </select>
               </div>

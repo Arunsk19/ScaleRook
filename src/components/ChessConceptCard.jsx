@@ -88,7 +88,7 @@ export default function ChessConceptCard() {
           <span>The Chess & Growth Synergy</span>
         </div>
         <p className="text-lg md:text-xl font-heading font-extrabold text-white max-w-3xl mx-auto leading-relaxed">
-          "SCALEROOK represents making strategic moves that create scalable growth. Every business needs the right move at the right time."
+          "SCALEROOKS represents making strategic moves that create scalable growth. Every business needs the right move at the right time."
         </p>
       </div>
     </div>

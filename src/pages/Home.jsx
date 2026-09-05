@@ -98,12 +98,12 @@ export default function Home({ onOpenStrategyModal }) {
           </h1>
 
           <p className="hero-subheadline">
-            ScaleRook is the execution partner behind your business — combining digital, creative, marketing, sales, talent, and operations under one strategic roof.
+            ScaleRooks is the execution partner behind your business — combining digital, creative, marketing, sales, talent, and operations under one strategic roof.
           </p>
 
           <div className="hero-cta-row">
             <button type="button" onClick={onOpenStrategyModal} className="hero-cta-primary">
-              Explore ScaleRook <span aria-hidden="true">→</span>
+              Explore ScaleRooks <span aria-hidden="true">→</span>
             </button>
             <Link to="/services" className="hero-cta-secondary">
               View Capabilities
@@ -248,9 +248,9 @@ export default function Home({ onOpenStrategyModal }) {
 
       <section className="ref-shell py-8">
         <div className="text-center max-w-3xl mx-auto">
-          <div className="ref-eyebrow justify-center">Scalerook business partner</div>
+          <div className="ref-eyebrow justify-center">ScaleRooks business partner</div>
           <h2 className="mt-4 section-headline text-[44px] sm:text-[54px] md:text-[64px] lg:text-[72px] xl:text-[76px] font-extrabold leading-[0.98] text-[#F4F0E8]">Stop managing vendors.<br /><span className="text-gradient-gold">Build one strategic team.</span></h2>
-          <p className="mt-5 text-base md:text-lg text-[#E2DDD4] font-medium leading-relaxed">ScaleRook Business Partner brings multiple capabilities under one relationship — from your first digital foundation to marketing, sales, talent and operations as you grow.</p>
+          <p className="mt-5 text-base md:text-lg text-[#E2DDD4] font-medium leading-relaxed">ScaleRooks Business Partner brings multiple capabilities under one relationship — from your first digital foundation to marketing, sales, talent and operations as you grow.</p>
         </div>
       </section>
 
@@ -302,7 +302,7 @@ export default function Home({ onOpenStrategyModal }) {
           <div className="relative z-10">
             <div className="ref-eyebrow justify-center">Start the conversation</div>
             <h2 className="mt-5 section-headline text-[44px] sm:text-[56px] md:text-[66px] lg:text-[76px] xl:text-[82px] font-extrabold leading-[0.96] text-[#F4F0E8]">Don’t just build a business.<br /><span className="text-gradient-purple-gold">Build one that can scale.</span></h2>
-            <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-[#E2DDD4] font-medium leading-relaxed">Tell us what you’re trying to build. ScaleRook can help identify the right capabilities and execution path.</p>
+            <p className="mx-auto mt-5 max-w-2xl text-base md:text-lg text-[#E2DDD4] font-medium leading-relaxed">Tell us what you’re trying to build. ScaleRooks can help identify the right capabilities and execution path.</p>
             <button onClick={onOpenStrategyModal} className="btn-gold-rect mt-7">Start your journey <span>→</span></button>
           </div>
         </div>

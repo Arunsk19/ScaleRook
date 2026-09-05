@@ -30,7 +30,7 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'build',
       num: '01',
-      title: 'SCALEROOK BUILD',
+      title: 'SCALEROOKS BUILD',
       headline: 'Build Your Digital Foundation',
       premise: 'We create the digital infrastructure your business needs to establish a professional presence.',
       objective: 'Turn your business idea into a professional digital presence.',
@@ -55,7 +55,7 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'creative',
       num: '02',
-      title: 'SCALEROOK CREATIVE',
+      title: 'SCALEROOKS CREATIVE',
       headline: 'Make Your Brand Impossible to Ignore.',
       premise: 'Your business needs more than a logo. We create the visual and content assets that help businesses communicate, attract attention and build credibility.',
       objective: 'Turn your business into a brand people remember.',
@@ -79,7 +79,7 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'grow',
       num: '03',
-      title: 'SCALEROOK GROW',
+      title: 'SCALEROOKS GROW',
       headline: 'Put Your Business in Front of the Right People.',
       premise: 'We build digital marketing systems designed to increase visibility, engagement, enquiries and customer acquisition.',
       objective: 'Turn attention into opportunities.',
@@ -103,7 +103,7 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'sell',
       num: '04',
-      title: 'SCALEROOK SELL',
+      title: 'SCALEROOKS SELL',
       headline: 'Build a Predictable Sales Pipeline.',
       premise: 'Marketing creates attention. Sales turns opportunities into revenue. Our sales services provide businesses with dedicated outbound and pipeline resources.',
       objective: 'Build conversations that create customers.',
@@ -127,9 +127,9 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'talent',
       num: '05',
-      title: 'SCALEROOK TALENT',
+      title: 'SCALEROOKS TALENT',
       headline: 'Build Your Team Without Building Everything Yourself.',
-      premise: 'Finding the right people can take time and money. ScaleRook supports businesses with vetted, scalable staffing and resource allocation.',
+      premise: 'Finding the right people can take time and money. ScaleRooks supports businesses with vetted, scalable staffing and resource allocation.',
       objective: 'Give businesses access to the people they need to grow.',
       icon: Users,
       checklist: [
@@ -149,7 +149,7 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'operate',
       num: '06',
-      title: 'SCALEROOK OPERATE',
+      title: 'SCALEROOKS OPERATE',
       headline: 'We Help You Keep the Business Moving.',
       premise: 'Growth creates operational complexity. Our operational support eliminates administrative bottlenecks.',
       objective: 'Take operational pressure away from the business owner.',
@@ -171,7 +171,7 @@ export default function Services({ onOpenStrategyModal }) {
     {
       id: 'scale',
       num: '07',
-      title: 'SCALEROOK SCALE',
+      title: 'SCALEROOKS SCALE',
       headline: "When You're Ready to Go Further.",
       premise: 'Once the foundation is established, we help businesses identify and execute aggressive expansion opportunities.',
       objective: 'Turn a working business into a scalable business.',
@@ -198,12 +198,12 @@ export default function Services({ onOpenStrategyModal }) {
           <div className="ref-eyebrow justify-center">Capability directory</div>
           <h1 className="display-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-none text-[#F4F0E8]">Capabilities & deliverables</h1>
           <p className="mx-auto max-w-3xl text-base md:text-lg text-[#E2DDD4] font-medium leading-relaxed">
-            From your initial web presence to remote teams and market expansion — explore all 7 ScaleRook pillars engineered for end-to-end business growth.
+            From your initial web presence to remote teams and market expansion — explore all 7 ScaleRooks pillars engineered for end-to-end business growth.
           </p>
           <div className="flex flex-wrap justify-center gap-2 pt-2">
             {serviceModules.map((m) => (
               <a key={m.id} href={`#${m.id}`} className="btn-secondary py-2.5 px-3.5 text-[0.62rem] font-bold">
-                {m.num} {m.title.replace('SCALEROOK ', '')}
+                {m.num} {m.title.replace('SCALEROOKS ', '')}
               </a>
             ))}
           </div>
@@ -299,7 +299,7 @@ export default function Services({ onOpenStrategyModal }) {
             Need a Customized Combination of Services?
           </h2>
           <p className="text-sm text-[#B8B3AE] max-w-2xl mx-auto">
-            Our ScaleRook Business Partner model allows you to combine multiple service pillars into one seamless monthly execution retainer.
+            Our ScaleRooks Business Partner model allows you to combine multiple service pillars into one seamless monthly execution retainer.
           </p>
           <div className="flex items-center justify-center gap-4 pt-2">
             <button

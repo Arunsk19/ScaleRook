@@ -16,7 +16,7 @@ export default function BusinessPartner({ onOpenStrategyModal }) {
     {
       option: 'Option 1',
       type: 'Project',
-      title: 'ScaleRook Build',
+      title: 'ScaleRooks Build',
       trigger: 'Need a website or brand identity package?',
       desc: 'Fixed-scope, turnkey execution for websites, landing pages, custom dev, and visual identity.',
       badge: 'Fixed Deliverable'
@@ -24,7 +24,7 @@ export default function BusinessPartner({ onOpenStrategyModal }) {
     {
       option: 'Option 2',
       type: 'Service',
-      title: 'ScaleRook Grow',
+      title: 'ScaleRooks Grow',
       trigger: 'Need ongoing monthly digital marketing & SEO?',
       desc: 'Dedicated monthly marketing, social media content, paid ad optimization, and lead generation.',
       badge: 'Monthly Capability'
@@ -32,7 +32,7 @@ export default function BusinessPartner({ onOpenStrategyModal }) {
     {
       option: 'Option 3',
       type: 'Dedicated Team',
-      title: 'ScaleRook Sell / Talent',
+      title: 'ScaleRooks Sell / Talent',
       trigger: 'Need two dedicated SDRs or remote staffing?',
       desc: 'Handpicked, vetted remote resources dedicated exclusively to your outbound sales and pipeline.',
       badge: 'Dedicated Resources'
@@ -52,7 +52,7 @@ export default function BusinessPartner({ onOpenStrategyModal }) {
     <div className="bg-transparent pb-20 pt-28 text-[#F4F0E8]">
       <section data-section="partner" className="ref-shell text-center space-y-6">
         <div className="ref-eyebrow justify-center">Flagship engagement model</div>
-        <h1 className="display-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-none text-[#F4F0E8]">ScaleRook Business Partner</h1>
+        <h1 className="display-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-none text-[#F4F0E8]">ScaleRooks Business Partner</h1>
         <p className="mx-auto max-w-3xl text-base md:text-lg text-[#E2DDD4] font-medium leading-relaxed">
           The single partner solution to eliminate agency sprawl. Access world-class web, creative, marketing, sales, talent, and ops without managing six different vendors.
         </p>
@@ -61,14 +61,14 @@ export default function BusinessPartner({ onOpenStrategyModal }) {
         </div>
       </section>
 
-      {/* 2. Fragmented Management vs ScaleRook Solution */}
+      {/* 2. Fragmented Management vs ScaleRooks Solution */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 mt-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-mono font-bold text-[#D7A62A] uppercase tracking-widest block">
             COMPARATIVE ANALYSIS
           </span>
           <h2 className="section-headline text-[38px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-extrabold text-[#F4F0E8] leading-[0.98]">
-            Fragmented Agency Sprawl vs. ScaleRook
+            Fragmented Agency Sprawl vs. ScaleRooks
           </h2>
         </div>
 
@@ -101,11 +101,11 @@ export default function BusinessPartner({ onOpenStrategyModal }) {
             </div>
           </div>
 
-          {/* Right: The ScaleRook Solution */}
+          {/* Right: The ScaleRooks Solution */}
           <div className="lg:col-span-6 p-8 editorial-card border-[rgba(215,166,42,0.45)] space-y-6 bg-[#08070A]">
             <div className="flex items-center justify-between border-b border-[rgba(215,166,42,0.3)] pb-4">
               <div>
-                <span className="text-xs font-mono font-bold text-[#D7A62A] uppercase tracking-widest block">The ScaleRook Way</span>
+                <span className="text-xs font-mono font-bold text-[#D7A62A] uppercase tracking-widest block">The ScaleRooks Way</span>
                 <h3 className="text-2xl font-serif font-bold text-[#E5B93F]">Single Strategic Execution Partner</h3>
               </div>
               <Check className="w-6 h-6 text-[#E5B93F]" />

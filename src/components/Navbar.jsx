@@ -26,8 +26,8 @@ export default function Navbar({ onOpenStrategyModal }) {
   const navLinks = [
     { name: 'OUR MOVE', path: '/' },
     { name: 'CAPABILITIES', path: '/services' },
-    { name: 'BUSINESS PARTNER', path: '/business-partner' },
     { name: 'APPROACH', path: '/about' },
+    { name: 'BUSINESS PARTNER', path: '/business-partner' },
     { name: 'CONTACT', path: '/contact' },
   ];
 
@@ -41,7 +41,7 @@ export default function Navbar({ onOpenStrategyModal }) {
     <header className={`ref-header ${scrolled ? 'shadow-[0_10px_24px_rgba(0,0,0,0.18)]' : ''}`}>
       <div className="ref-header-inner">
         {/* LOGO on the far left */}
-        <Link to="/" className="flex items-center gap-3 group shrink-0" aria-label="ScaleRook Home">
+          <Link to="/" className="flex items-center gap-3 group shrink-0" aria-label="ScaleRooks Home">
           <Logo size="small" showTagline={false} />
         </Link>
 

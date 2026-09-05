@@ -5,20 +5,20 @@ import { Link } from 'react-router-dom';
 export default function RetainerConfigurator({ onOpenModal }) {
   const [selectedStage, setSelectedStage] = useState('Early Startup');
   const [selectedPillars, setSelectedPillars] = useState([
-    'ScaleRook Build',
-    'ScaleRook Grow',
-    'ScaleRook Sell'
+    'ScaleRooks Build',
+    'ScaleRooks Grow',
+    'ScaleRooks Sell'
   ]);
   const [teamBandwidth, setTeamBandwidth] = useState('Dedicated Specialist');
 
   const pillars = [
-    { id: 'ScaleRook Build', name: '01 Build', tag: 'Websites & Apps', priceWeight: 1 },
-    { id: 'ScaleRook Creative', name: '02 Creative', tag: 'Branding & Video', priceWeight: 1 },
-    { id: 'ScaleRook Grow', name: '03 Grow', tag: 'Marketing & Ads', priceWeight: 1.2 },
-    { id: 'ScaleRook Sell', name: '04 Sell', tag: 'SDR Outbound', priceWeight: 1.5 },
-    { id: 'ScaleRook Talent', name: '05 Talent', tag: 'Remote Staffing', priceWeight: 1.3 },
-    { id: 'ScaleRook Operate', name: '06 Operate', tag: 'Virtual Assistance', priceWeight: 1 },
-    { id: 'ScaleRook Scale', name: '07 Scale', tag: 'Market Expansion', priceWeight: 1.4 },
+    { id: 'ScaleRooks Build', name: '01 Build', tag: 'Websites & Apps', priceWeight: 1 },
+    { id: 'ScaleRooks Creative', name: '02 Creative', tag: 'Branding & Video', priceWeight: 1 },
+    { id: 'ScaleRooks Grow', name: '03 Grow', tag: 'Marketing & Ads', priceWeight: 1.2 },
+    { id: 'ScaleRooks Sell', name: '04 Sell', tag: 'SDR Outbound', priceWeight: 1.5 },
+    { id: 'ScaleRooks Talent', name: '05 Talent', tag: 'Remote Staffing', priceWeight: 1.3 },
+    { id: 'ScaleRooks Operate', name: '06 Operate', tag: 'Virtual Assistance', priceWeight: 1 },
+    { id: 'ScaleRooks Scale', name: '07 Scale', tag: 'Market Expansion', priceWeight: 1.4 },
   ];
 
   const stages = [
@@ -47,7 +47,7 @@ export default function RetainerConfigurator({ onOpenModal }) {
       ? 'Modular Growth Retainer'
       : scopeScore <= 5
       ? 'Multi-Department Business Accelerator'
-      : 'Full ScaleRook Complete Business Partner';
+      : 'Full ScaleRooks Complete Business Partner';
 
   return (
     <div className="p-6 md:p-10 rounded-3xl glass-card border border-purple-500/30 shadow-2xl relative overflow-hidden">

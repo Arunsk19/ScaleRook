@@ -199,7 +199,7 @@ export default function Contact() {
                 </div>
                 <h3 className="text-3xl md:text-4xl font-serif font-bold text-[#F4F0E8]">Execution Plan Requested</h3>
                 <p className="text-base text-[#B8B3AE] max-w-md mx-auto leading-relaxed">
-                  Thank you! Your discovery request has been assigned to an execution director at ScaleRook (ARM Digital Services). We will contact you within 24 hours.
+                  Thank you! Your discovery request has been assigned to an execution director at ScaleRooks (ARM Digital Services). We will contact you within 24 hours.
                 </p>
               </div>
             )}
@@ -247,7 +247,7 @@ export default function Contact() {
             {/* Corporate Attribution Card */}
             <div className="editorial-card p-7 text-center space-y-3 bg-[#08070A]">
               <span className="text-[11px] font-mono text-[#B8B3AE] uppercase tracking-[0.16em] block">PARENT ORGANIZATION</span>
-              <h4 className="text-lg font-serif font-bold text-[#F4F0E8]">ScaleRook — A brand of ARM Digital Services</h4>
+              <h4 className="text-lg font-serif font-bold text-[#F4F0E8]">ScaleRooks — A brand of ARM Digital Services</h4>
               <p className="text-xs md:text-sm text-[#B8B3AE] leading-relaxed">Strategic Moves. Scalable Growth. Build. Grow. Sell. Operate. Scale.</p>
             </div>
 
