@@ -36,26 +36,37 @@ function escapeHtml(value) {
 }
 
 function emailRow(label, value) {
-  return `<tr>
-    <td style="padding:12px 16px;border-bottom:1px solid #2b2635;color:#b8b3ae;width:34%;vertical-align:top;">
-      ${label}
-    </td>
-    <td style="padding:12px 16px;border-bottom:1px solid #2b2635;color:#f4f0e8;white-space:pre-wrap;">
-      ${escapeHtml(value)}
-    </td>
-  </tr>`;
+  return `
+    <tr>
+      <td style="padding:12px 16px;border-bottom:1px solid #2b2635;color:#b8b3ae;width:34%;vertical-align:top;">
+        ${label}
+      </td>
+      <td style="padding:12px 16px;border-bottom:1px solid #2b2635;color:#f4f0e8;white-space:pre-wrap;">
+        ${escapeHtml(value)}
+      </td>
+    </tr>
+  `;
 }
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
-    return errorResponse(res, 405, 'Method not allowed.');
+
+    return errorResponse(
+      res,
+      405,
+      'Method not allowed.'
+    );
   }
 
   const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey) {
-    return errorResponse(res, 500, 'Unable to send your request.');
+    return errorResponse(
+      res,
+      500,
+      'Unable to send your request.'
+    );
   }
 
   let body;
@@ -65,11 +76,19 @@ export default async function handler(req, res) {
       ? JSON.parse(req.body)
       : req.body;
   } catch {
-    return errorResponse(res, 400, 'Invalid request.');
+    return errorResponse(
+      res,
+      400,
+      'Invalid request.'
+    );
   }
 
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
-    return errorResponse(res, 400, 'Invalid request.');
+    return errorResponse(
+      res,
+      400,
+      'Invalid request.'
+    );
   }
 
   const fields = Object.fromEntries(
@@ -102,7 +121,8 @@ export default async function handler(req, res) {
 
   if (
     Object.entries(fields).some(
-      ([field, value]) => value.length > fieldLimits[field]
+      ([field, value]) =>
+        value.length > fieldLimits[field]
     )
   ) {
     return errorResponse(
@@ -124,7 +144,11 @@ export default async function handler(req, res) {
     try {
       const parsedWebsite = new URL(website);
 
-      if (!['http:', 'https:'].includes(parsedWebsite.protocol)) {
+      if (
+        !['http:', 'https:'].includes(
+          parsedWebsite.protocol
+        )
+      ) {
         throw new Error('Invalid protocol');
       }
     } catch {
@@ -137,7 +161,8 @@ export default async function handler(req, res) {
   }
 
   const from =
-    process.env.CONTACT_FROM_EMAIL || 'onboarding@resend.dev';
+    process.env.CONTACT_FROM_EMAIL ||
+    'onboarding@resend.dev';
 
   const subject =
     `New ScaleRooks Project Enquiry — ${fullName}`;
